@@ -98,14 +98,24 @@ function addBiblioteca() {
         loop = false;
         break;
       case 2:
-        let livroProcurar = prompt("Nome do Livro:");
-        bibliotecas[0].BuscarLivro(livroProcurar);
-        loop = false;
+        if (bibliotecas.length == 0) {
+          alert("Cadastre um Biblioteca Primeiro");
+          loop = false;
+        } else {
+          let livroProcurar = prompt("Nome do Livro:");
+          bibliotecas[0].BuscarLivro(livroProcurar);
+          loop = false;
+        }
         break;
       case 3:
-        let livroEmprestimo = prompt("Nome do Livro:");
-        bibliotecas[0].Emprestimo(livroEmprestimo);
-        loop = false;
+        if (bibliotecas.length == 0) {
+          alert("Cadastre um Biblioteca Primeiro");
+          loop = false;
+        } else {
+          let livroEmprestimo = prompt("Nome do Livro:");
+          bibliotecas[0].Emprestimo(livroEmprestimo);
+          loop = false;
+        }
         break;
       case 4:
         let livroDevolver = prompt("Nome do Livro:");
