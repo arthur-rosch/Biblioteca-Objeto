@@ -1,11 +1,3 @@
-// 5. Adicione na classe Biblioteca um método de empréstimo de um livro, deve ser
-// passado como parâmetro o nome do livro, então verificar a disponibilidade e se
-// estiver disponível retornar true e trocar o valor da propriedade do livro para false, se
-// não estiver disponível retornar false.
-// 6. Adicione na classe Biblioteca um método de devolução de um livro, deve ser
-// passado como parâmetro o nome do livro, então trocar o valor da propriedade de
-// disponibilidade desse livro para true;
-// 7. Crie um objeto da classe Biblioteca e chame seus métodos.
 let livros = [],
   bibliotecas = [];
 class Livro {
@@ -32,14 +24,36 @@ class Biblioteca {
       }
     });
   }
+  Emprestimo(NomeLivro) {
+    livros.forEach((livro) => {
+      if (NomeLivro == livro.Titulo) {
+        if (livro.Disponibilidade == true) {
+          alert(true);
+          livro.Disponibilidade = false;
+        } else {
+          alert(false);
+        }
+      } else {
+        alert("Livro Invalido");
+      }
+    });
+  }
+  Devolver(NomeLivro) {
+    livros.forEach((livro) => {
+      if (NomeLivro == livro.Titulo) {
+        if (livro.Disponibilidade == false) {
+          alert("Livro Devolvido");
+          livro.Disponibilidade = true;
+        }
+      } else {
+        alert("Livro Invalido");
+      }
+    });
+  }
 }
 let loop = true;
 while (loop) {
-  var choice = Number(
-    prompt(
-      "1-Cadastrar Livro \n2-Cadastrar Biblioteca \n3-Buscar Livro\n5-Sair"
-    )
-  );
+  var choice = Number(prompt("1-Cadastrar Livro \n2-Biblioteca \n3-Sair"));
   switch (choice) {
     case 1:
       addLivro();
@@ -48,15 +62,10 @@ while (loop) {
       addBiblioteca();
       break;
     case 3:
-      const livro = prompt("Nome do Livro:");
-      Biblioteca.BuscarLivro(livro);
-      break;
-    case 5:
       loop = false;
       break;
   }
 }
-
 function addLivro() {
   let livro = new Livro();
   livro.Titulo = prompt("Titulo do Livro:");
@@ -72,9 +81,44 @@ function addLivro() {
   livros.push(livro);
 }
 function addBiblioteca() {
-  let biblioteca = new Biblioteca();
-  biblioteca.Nome = prompt("Nome da Biblioteca:");
-  biblioteca.Endereco = prompt("Endereco da Biblioteca:");
-  biblioteca.Telefone = prompt("Telefone da Biblioteca:");
-  bibliotecas.push(biblioteca);
+  let choice = Number(
+    prompt(
+      "1-Cadastrar Biblioteca \n2-Buscar Livro \n3-Emprestimo Livro \n4-Devolver Livro \n5-Sair"
+    )
+  );
+  let loop = true;
+  while (loop) {
+    switch (choice) {
+      case 1:
+        let biblioteca = new Biblioteca();
+        biblioteca.Nome = prompt("Nome da Biblioteca:");
+        biblioteca.Endereco = prompt("Endereco da Biblioteca:");
+        biblioteca.Telefone = prompt("Telefone da Biblioteca:");
+        bibliotecas.push(biblioteca);
+        loop = false;
+        break;
+      case 2:
+        let livroProcurar = prompt("Nome do Livro:");
+        bibliotecas[0].BuscarLivro(livroProcurar);
+        loop = false;
+        break;
+      case 3:
+        let livroEmprestimo = prompt("Nome do Livro:");
+        bibliotecas[0].Emprestimo(livroEmprestimo);
+        loop = false;
+        break;
+      case 4:
+        let livroDevolver = prompt("Nome do Livro:");
+        bibliotecas[0].Devolver(livroDevolver);
+        loop = false;
+        break;
+      case 5:
+        loop = false;
+        break;
+
+      default:
+        alert("Opção invalida");
+        break;
+    }
+  }
 }
